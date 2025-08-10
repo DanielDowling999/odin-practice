@@ -1,6 +1,6 @@
 function sumSalaries(obj){
     let sum = 0;
-    for(person in salaries){
+    for(person in obj){
         sum+=obj[person]
     }
     return sum;
