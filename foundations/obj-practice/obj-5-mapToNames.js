@@ -4,6 +4,6 @@ let mary = { name: "Mary", age: 28 };
 
 let users = [ john, pete, mary ];
 
-let names = users.map(user=>user.name)
+let names = users.map(item=>item.name)
 
 console.log( names ); // John, Pete, Mary
