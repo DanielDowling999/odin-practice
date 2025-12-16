@@ -1,0 +1,5 @@
+/*Will add some styling*/        
+body{
+    display:flex;
+    flex-direction:column;
+}
