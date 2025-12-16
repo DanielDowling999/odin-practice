@@ -15,10 +15,25 @@ function Book(title, author, pages, read){
     }
 }
 
+const newBookButton = document.getElementById("newBook");
+const newBookDialog = document.getElementById("newBookDialog");
+const cancelButton = document.getElementById("cancel");
+const newBookForm = document.getElementById("newBookForm");
+const bookSubmit = document.getElementById("bookSubmit");
+const container = document.getElementById("table-container");
+
+Book.prototype.readSwap = function(){
+    this.read = !this.read;
+}
+
 function addBookToLibrary(title, author, pages, read){
     let bookToAdd = new Book(title, author, pages, read);
     bookLibrary.push(bookToAdd);
     console.log("Book added: " + bookToAdd.id);
+}
+
+function removeBookFromLibrary(id){
+    bookLibrary = bookLibrary.filter((book)=>book.id !==id);
 }
 
 function displayLibrary(bookLibrary){
@@ -30,18 +45,26 @@ function displayLibrary(bookLibrary){
     for(const book of bookLibrary){
         const row = document.createElement("tr");
 
-        row.innerHTML = `<td>${book.title}</td> <td>${book.author}</td> <td>${book.pages}</td> <td>${book.read}</td> <td>${book.id}</td>`;
+        row.innerHTML = `<td>${book.title}</td> <td>${book.author}</td> <td>${book.pages}</td> <td>${book.read} <button data-class="swap" data-id = "${book.id}">Swap</button></td><td>${book.id}</td> <td><button data-class="delete" data-id = "${book.id}">x</button></td>`;
         table.appendChild(row);
     }
     return table;
 }
 
-const newBookButton = document.getElementById("newBook");
-const newBookDialog = document.getElementById("newBookDialog");
-const cancelButton = document.getElementById("cancel");
-const newBookForm = document.getElementById("newBookForm");
-const bookSubmit = document.getElementById("bookSubmit");
-const container = document.getElementById("table-container");
+container.addEventListener("click", (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.tagName !== "BUTTON") return;
+    const id = clickedElement.dataset.id;
+    if(clickedElement.dataset.class == "delete"){
+        removeBookFromLibrary(id);
+    }
+    else{
+        bookLibrary.find(book=> book.id === id).readSwap();
+    }
+
+    container.innerHTML="";
+    container.appendChild(displayLibrary(bookLibrary));
+});
 
 newBookButton.addEventListener("click", () =>{
     newBookDialog.showModal();
@@ -68,7 +91,8 @@ cancelButton.addEventListener("click", () => {
 });
 
 
-const bookLibrary = [];
+
+let bookLibrary = [];
 addBookToLibrary("A Bad Book", "Bad Author", 2, true);
 addBookToLibrary("An Okay Book", "Okay Author", 24, false);
 addBookToLibrary("A Good Book", "Good Author", 200, false);
