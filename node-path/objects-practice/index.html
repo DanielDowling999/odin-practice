@@ -17,7 +17,26 @@
     <div id="table-container">
 
     </div>
-    <button>New Book</button>
+    <button type="button" id="newBook">New Book</button>
+    <dialog id="newBookDialog">
+        <form id="newBookForm">
+            <label for="bookName">Book Title:</label>
+            <input type="text" name="bookName" id="bookName">
+            <label for="bookAuthor">Book Author:</label>
+            <input type="text" name="bookAuthor" id="bookAuthor">
+            <label for="bookPages">Number of Pages:</label>
+            <input type="number" name="bookPages" id="bookPages">
+            <fieldset>
+                <legend>Have you read the book?</legend>
+                <label for="bookReadYes">Yes</label>
+                <input type="radio" name="bookRead" id="bookReadYes">
+                <label for="bookReadNo">No</label>
+                <input type="radio" name="bookRead" id="bookReadNo">
+            </fieldset>
+        </form>
+        <button form="newBookForm" type="submit" id="bookSubmit">Submit</button>
+        <button id="cancel">Cancel</button>
+    </dialog>
     
 </body>
 </html>
